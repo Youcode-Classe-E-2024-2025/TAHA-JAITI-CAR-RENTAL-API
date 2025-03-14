@@ -14,7 +14,7 @@ class CarController extends Controller
     public function index()
     {
         //
-        return Car::orderBy("id","desc")->paginate(8);
+        return Car::orderBy("id", "desc")->paginate(8);
     }
 
     /**
@@ -37,24 +37,27 @@ class CarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Car $car)
     {
-        //
+        return $car;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Car $car)
     {
-        //
+        $car->update($request->all());
+
+        return Res::success($car, 'Car updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Car $car)
     {
-        //
+        $car->delete();
+        return Res::success($car,'Car deleted successfully');
     }
 }
