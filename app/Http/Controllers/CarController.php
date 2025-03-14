@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Res;
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -12,6 +14,7 @@ class CarController extends Controller
     public function index()
     {
         //
+        return Car::orderBy("id","desc")->paginate(8);
     }
 
     /**
@@ -19,7 +22,16 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'produced_on' => 'required|date',
+            'price' => 'required|integer'
+        ]);
+
+        $car = Car::create($request->all());
+
+        return Res::success($car, 'Car created successfully');
     }
 
     /**
