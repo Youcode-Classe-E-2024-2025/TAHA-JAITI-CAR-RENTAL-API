@@ -14,7 +14,10 @@ Route::controller(AuthController::class)->group(function () {
 
 
 
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::resource('cars', CarController::class);
+    Route::resource('cars', CarController::class);
 
-Route::post('pay', [PaymentController::class, 'pay']);
+    Route::post('pay', [PaymentController::class, 'pay']);
+
+});
